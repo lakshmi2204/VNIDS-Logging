@@ -1,9 +1,10 @@
 import logging
+from log_insert import insert_log
 
 # Configure logging
 logging.basicConfig(
-    filename="attack.log",   # Log file name
-    level=logging.INFO,      # Log level
+    filename="attack.log",
+    level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
@@ -16,6 +17,10 @@ def log_attack(ip, attack_type, severity):
 
     message = f"IP: {ip} | Attack: {attack_type} | Severity: {severity}"
 
+    # Save to attack.log
     logger.info(message)
 
-    print("Log recorded:", message)
+    # Save to database
+    insert_log(ip, attack_type, severity)
+
+    print("✔ Log recorded:", message)
